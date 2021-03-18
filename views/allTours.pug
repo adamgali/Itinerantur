@@ -1,0 +1,89 @@
+extends base
+include mixin/_reviewStars
+
+block content
+
+  include _header
+  
+  #wrapper
+    #main.search-page
+      #serverside
+        .intro-section.wave-bg.header-search
+          .bg-block.d-block.b-md-none(style='background-image: url("/assets/images/rectangle.svg");')
+          .container
+        .page-holder
+          .container.tours
+            .row
+              .col-md-8.col-lg-9
+                section.content
+                  .page-top
+                    .title-holder
+                      h1.base-title All Our Tours
+                      span.base-subtitle.d-none.d-md-block
+                        .base-subtitle_container(style="display: flex;")
+                          span(style="margin-top: 10px;")
+                            | #{tours.length} activities found                    
+                  // TOURS CARD HOLDER
+                  .cards-list-holder
+                    ul.cards-list
+                      each tour in tours 
+                        li
+                          a.unstyled(href=`/tour/${tour.slug}`)
+                            .base-block
+                              .img-holder.bg-stretch(style=`background-image: url(/assets/images/tours/${tour.imageCover})`, alt=`${tour.name}`)
+                                span.category= tour.name
+                                  - const recommend = tour.ratingsAverage
+                                    if recommend === 5
+                                      .tag
+                                        .label-promo
+                                          div
+                                            .label-promo-tag.rated(style="background-color: rgb(255, 183, 37);")
+                                              div(style="padding-left: 5px;")
+                                                | RECOMMENDED
+                                            .label-promo-tooltiptext
+                                              | Based on customer feedback this is a TOP RATED activity you can count on.
+                                span.price
+                                  span.text 
+                                    span From
+                                    span.search-price
+                                      |
+                                      |
+                                      span £#{tour.price}
+                                    span.text-lowercase
+                                      |
+                                      |
+                                      span /person
+                              .content
+                                strong.title
+                                  | #{tour.summary}
+                                  ul.static-rating.single_tour.affiliate-color-font
+                                    - const stars = tour.ratingsAverage
+                                    +_reviewStars(stars)
+                                      li.rating-nb
+                                        span=  tour.ratingsAverage
+                                        |
+                                        |
+                                        span= `rating (${tour.ratingsQuantity} reviews)` 
+                                .content-bottom
+                                  .infos-container 
+                                    span.icon-pin
+                                    span.text= tour.startLocation.description
+                                  .infos-container
+                                    span.icon-clock
+                                    span.text #{tour.locations.length} stops
+                                  .infos-container 
+                                    span.icon-calendar 
+                                    span.text= tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'})
+                                  .infos-container 
+                                    span.icon-user(style="font-size: 18px;")
+                                    span.text= `${tour.maxGroupSize} people`
+                              .bottom
+                                span.img-wrap.provider-logo-wrap
+                                  each guide in tour.guides
+                                    - if (guide.role === 'lead-guide')
+                                      img(src=`/assets/images/users/${guide.photo}`, alt=`${guide.firstName}`) 
+                                    - if (guide.role === 'lead-guide')
+                                      span.text Organised by 
+                                        strong= guide.firstName
+
+    include _footer

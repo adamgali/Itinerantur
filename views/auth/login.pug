@@ -1,0 +1,39 @@
+extends ../baseNoJs
+
+block content
+
+    include ../_headerRegister
+    #main.add.login_hero
+      .intro-section.wave-bg.intro-section-min
+      .container
+        .sign-form-holder.login_form
+          form.form.login-form.sign-form
+            fieldset
+              .info-box
+                span.icon-user-2
+                span.txt Login
+              .ah-text-center 
+                .login-error.red
+              .form-holder
+                .input-holder
+                  .input-item.required-field
+                    .form-group
+                      input#email.login_email_validation.default(type="email" required="required" placeholder="Email")
+                      span.ico-tick 
+                    span.ah-error-msg.login_email_err_msg
+                  .input-item
+                    .form-group
+                      input#password.login_password_validation.default(type="password" required="required" placeholder="Password")
+                      span.ico-tick
+                    span.ah-error-msg.password_login_err_msg
+                .form-btn-holder
+                  button.btn.btn-success Sign in
+              .bottom-block
+                .info-box
+                  span.create_account DON'T HAVE AN ONLINE ACCOUNT?
+                  span.icon-user.create_account-icon
+                  span.txt Create an account
+                .form-btn-holder
+                  a.btn.btn-login(href="/signup") Register
+                
+      include ../_footer

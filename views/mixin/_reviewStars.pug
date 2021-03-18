@@ -1,0 +1,29 @@
+mixin _reviewStars(rev)
+        case true
+            when (rev < 4)
+                li
+                    span.icon-star.active
+                li
+                    span.icon-star.active
+                li(style='text-decoration: none !important; ')
+                    span.icon-star.active
+            when (4 <= rev &&  rev < 5)
+                li
+                    span.icon-star.active
+                li
+                    span.icon-star.active
+                li
+                    span.icon-star.active
+                li(style='text-decoration: none !important; ')
+                    span.icon-star.active
+            when (rev >= 5)
+                li
+                    span.icon-star.active
+                li
+                    span.icon-star.active
+                li
+                    span.icon-star.active
+                li
+                    span.icon-star.active
+                li(style='text-decoration: none !important; ')
+                    span.icon-star.active

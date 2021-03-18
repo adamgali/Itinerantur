@@ -1,0 +1,43 @@
+header
+        #header
+          strong.logo
+            a(href="/")
+              img(src="/assets/images/logo.png" alt="Itinerantur" style="height: 16px;")
+          a.nav-opener(href="#")
+          #nav-bg.nav-bg
+          nav#nav.nav
+            a.nav-opener.close(href="#") 
+            .nav-holder
+              ul.main-menu
+                li
+                    a.ul-title.back-home(href="/") All Tours 
+                if user
+                  li 
+                    a.ul-title.back-home.logout.nav__el0.nav__el--logout0 Logout
+                      img.nav__user-img(src=`/assets/images/users/${user.photo}` alt=`Photo of ${user.firstName}`)
+                      span= user.firstName
+                else 
+                  li 
+                    a.ul-title.back-home(href="/signup"  title='signup') Signup
+                  li
+                    a.ul-title.login-mobile(href="/login" title='Login') Login                
+          .header-block
+            if user 
+              a.logout.nav__el.nav__el--logout Logout
+                a.nav__el(href='/account')
+                  img.nav__user-img(src=`/assets/images/users/${user.photo}` alt=`Photo of ${user.firstName}`)
+                  span.user_name= user.firstName
+            else
+              a.login(href='/login' title='Login') Login
+              a.login(href='/signup' title='signup') Signup               
+            #description.card.content-card.pop_up(style="display: none;")
+              #variant-description.card-block(style="padding-bottom:0")
+                .txt-wrap.description-block.close-block
+                  h3.card-title HELLO AND WELCOME.
+                  p Please be advised that this website does not sell any of the products which it displays. 
+                  p This website is meant to merely showcase my skills as a Node Js developer.
+                  p Should you notice any bugs, have any comments or alternatively wish to hire me, feel free to drop me a line at 
+                    a.contact(href="mailto:adam@adamali.dev") adam@adamali.dev.
+                  p Other than that happy browsing.
+                h3(style="margin-top: 20px; color:  #8a7252;") Adam Ali.
+              p#pop_up-close x                     

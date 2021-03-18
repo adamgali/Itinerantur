@@ -1,0 +1,26 @@
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.cache
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+.cache
+.eslintrc
+.prettierrc
+
+# misc
+/public/assets/images
+/config.env
+
+
+
+

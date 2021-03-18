@@ -1,0 +1,31 @@
+header
+        #header.header-sign-up
+          strong.logo
+            a(href="/")
+              img(src="/assets/images/logo1.png" alt="Itinerantur" style="height: 16px;")
+          a.nav-opener(href="#") 
+          #nav-bg.nav-bg
+          nav#nav.nav
+            a.nav-opener.close(href="#") 
+            .nav-holder
+              ul.main-menu
+                li
+                    a.ul-title.back-home(href="/") All Tours 
+                if user
+                  li 
+                    a.ul-title.back-home.logout.nav__el.nav__el--logout Logout
+                      img.nav__user-img(src=`/assets/images/users/${user.photo}` alt=`Photo of ${user.firstName}`)
+                      span= user.firstName
+                else 
+                  li 
+                    a.ul-title.back-home(href="/signup"  title='signup') Signup
+                  li
+                    a.ul-title.login-mobile(href="/login" title='Login') Login
+          .header-block
+            if user 
+              a.nav__el(href='/account')
+                img.nav__user-img(src=`/assets/images/users/${user.photo}` alt=`Photo of ${user.firstName}`)
+                span.user_name= user.firstName 
+            else
+              a.login(href='/login' title='Login') Login
+              a.login(href='/signup' title='signup') Signup

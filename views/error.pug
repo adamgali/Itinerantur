@@ -1,0 +1,30 @@
+extends base
+
+block content
+
+  include _header
+  
+  #main.static-page
+    // intro section
+    .intro-section.jumbotron.small
+      .container
+        .intro-content
+          .text-holder
+            h1
+             | ANY OBSTACLE 
+             br
+             | CAN BE OVERCOME
+      .bg-stretch
+        span(data-srcset="/assets/images/error_bg.jpg")
+    .inner-page-holder
+      .container
+        .row
+          .col-md-12
+            h2(class="page-error")= msg
+            strong(style="margin:30px 0 100px 0; font-size: 1.6rem")
+              a(class="four_O_four-error" href="/" title="Back to home") Let's try again
+                  
+      
+        include _footer
+                    
+                    

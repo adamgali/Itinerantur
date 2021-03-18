@@ -1,0 +1,54 @@
+extends ../baseNoJs
+
+block content
+
+    include ../_headerRegister
+
+    #main.add.signup_hero
+        .intro-section.wave-bg.intro-section-min
+        .container
+          .sign-form-holder.signup_form
+            form.form.signup-form.sign-form
+              fieldset
+                .info-box
+                  span.icon-user
+                  span.txt Signup
+                .ah-text-center
+                  .login-error.red
+                .form-holder
+                  .input-holder
+                    .input-item.required-field
+                      .form-group
+                        input#firstName.firstName_validation.default(type="text" required="required" placeholder="First name")
+                        span.ico-tick 
+                      span.ah-error-msg.firstName_err-msg
+                    .input-item
+                      .form-group
+                        input#lastName.lastName_validation.default(type="text" required="required" placeholder="Last Name")
+                        span.ico-tick
+                      span.ah-error-msg.lastName-_err_msg
+                    .input-item
+                      .form-group
+                        input#email.signup_email_validation.default(type="email" required="required" placeholder="Email")
+                        span.ico-tick
+                      span.ah-error-msg.signup_email_err_msg
+                    .input-item
+                      .form-group
+                        input#password.signup_password_validation.default(type="password" required="required" placeholder="Password")
+                        span.ico-tick
+                      span.ah-error-msg.password_signup_err_msg
+                    .input-item
+                      .form-group
+                        input#passwordConfirm.password_confrm_validation.default(type="password" required="required" placeholder="Password confirmation")
+                        span.ico-tick
+                      span.ah-error-msg.password_signup_confrm_err_msg
+                  .form-btn-holder
+                    button.btn.btn-success Submit >>
+                .bottom-block
+                  .info-box
+                    span.icon-user-2
+                    span.txt Login
+                  .form-btn-holder
+                    a.btn.btn-login(href="/login") Sign in
+              
+        include ../_footer

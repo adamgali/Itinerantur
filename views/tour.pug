@@ -1,0 +1,276 @@
+extends base
+include mixin/_reviewStars
+
+block append head 
+  script(src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js')
+  link(href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet')
+
+block content
+
+  include _header
+
+  #main.one-variant
+    .intro-section.z-index-2.see-gallery
+      .container
+
+        // INTRO SECTION
+        .intro-content
+          h1.small= tour.name
+        .location-info
+          .location
+            .location-desktop
+              i.icon-pin
+              span.text= tour.startLocation.description
+            .mobile-price
+              small From
+              div(id="") 
+                strong £ #{tour.price}
+                span(property="person") /person
+          a.btn.btn-success.btn-sm.d-md-none.see-gallery(href="javascript:void(0);")
+            span.icon-graph
+            |  See photos                              
+      .bg-stretch(style=`background-image:url(/assets/images/tours/${tour.imageCover})`, alt=`${tour.name}`)
+
+    // PAGE TOP BLOCK
+    .inner-page-top.hide-breadcrumb(style="padding:0")
+      .container
+        .holder
+          // BREADCRUBS
+          ul.breadcrumbs(vocab="https://schema.org/" typeof="BreadcrumbList")
+            li(property="itemListElement" typeof="ListItem")
+              a(property="item" typeof="WebPage" href="#")
+                span(property="name")= tour.startLocation.description
+              meta(property="position" content="1")
+            li
+              span.icon-chevron-right
+            li(property="itemListElement" typeof="ListItem")
+              a(property="item" typeof="WebPage" href="#")
+                span(property="name")= tour.name 
+              meta(property="position" content="2")
+          .info-block
+            span
+              span.d-none.d-md-inline
+
+    // PAGE TOP BLOCK
+    .page-wrapper
+      .container
+        .content-block.slideshow-holder
+          .content-wrapper
+            .row.reverse
+              // RIGHT PAGE SIDE CONTENT
+              .col-12.col-md-4.pull-md-8
+                span.mobile-title= tour.name 
+                aside.ticket-panel.text-center.fixed-block.activity-block.margin-no-review(itemscope="" itemtype="https://schema.org/Product")
+                  .btn-holder
+                    a.btn.btn-see-all.see-gallery(href="javascript:void(0);")
+                      span.icon-graph
+                      span.see-photos See photos
+                  .inner
+                    .price-holder
+                      span.price(itemprop="offers" itemscope="" itemtype="#")
+                        small From
+                        div(id="#") 
+                          strong £ #{tour.price}
+                          span(property="person" style="font-size: 1.6rem;") /person
+                    .ticket-content
+                      .rating-holder
+                        a.activity-reviews(href="javascript:void(0);" data-scroll-top-marge="100" data-scroll="#activity-reviews")                      
+                          ul.static-rating.single_tour.affiliate-color-font
+                            - const stars = tour.ratingsAverage
+                            +_reviewStars(stars)
+                            li.number-of-rating
+                              span=  tour.ratingsAverage
+                              |
+                              |
+                              span= `rating (${tour.ratingsQuantity} reviews)`
+                    if !user                   
+                      .forget-block.reminder.clearfix.for_login.one-variant             
+                        .column
+                          i.icon-info-2
+                          .content
+                            strong.title Please Login to your account in order to book this tour
+                    else 
+                      ul.btn-panel.one-variant
+                        li.gift-btn
+                          a#gift-without-date-mobile.btn.btn-outline-warning.affiliate-color-gift(href="#")
+                            span.icon-gift 
+                        li                          
+                          button#book-tour.btn.btn-warning.affiliate-color(data-tour-id=`${tour.id}`) Book Tour
+                    span.offer-stat.d-none.d-md-flex.stat-book
+                      span This offer is very popular
+                      span.text 8 people recently chose this activity
+                    .contacts-holder
+                      span.text-item.d-none.d-md-block Need help?
+                      .contact-buttons
+                        a#button-popup-call.button(href="javascript:void(0);" style="width:100%" data-src="#popup-call")
+                          i.icon-cellphone
+                          span.text Call us
+                        a#button-popup-call.button(href="javascript:void(0);" style="width:100%" data-src="#popup-call")
+                          i.icon-speech-2
+                          span.text Start chatting
+              // END RIGHT PAGE SIDE CONTENT
+
+              .separator
+
+              // MIDDLE PAGE CONTENT
+              .col-12.col-md-8.push-md-4
+                .content
+                  .anchor-block.d-none.d-md-block.fixed-block
+                    ul.anchor-list.list-inline
+                      li.active
+                        a(href="#description" data-scroll-top-marge="200") Activity description 
+                      li
+                        a.mapBox_link(href="#activity-meeting-point" data-scroll-top-marge="200") Meeting point 
+                      li
+                        a(href="#activity-gallery" data-scroll-top-marge="200") Gallery 
+                    strong.title= tour.name
+                  .offer-stat.stat-book.d-md-none
+                    div This offer is very popular
+                    .text 32 people recently chose this activity
+                  div
+                    .card.content-card
+                      h3.card-title Activity Snapshot
+                      ul.option-list
+                        li
+                          .title
+                            i.icon-shoe
+                            span.text.text-uppercase Activity level
+                          .description
+                            strong= tour.difficulty
+                        li
+                          .title
+                            i.icon-user
+                            span.text.text-uppercase
+                              | PARTICIPANTS
+                          .description
+                          strong #{tour.maxGroupSize} people
+                        li
+                          .title
+                            i.icon-clock
+                            span.text.text-uppercase Duration
+                          .description
+                            strong= `${tour.duration} days`
+                        li
+                          .title
+                            i.icon-clouds
+                            span.text.text-uppercase
+                              | Next Tour Date
+                          .description
+                          strong #{tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'})}
+                      h3.card-title YOUR TOUR GUIDES 
+                      ul.option-list
+                        each guide in tour.guides
+                          .overview-box__detail
+                            img.overview-box__img(src=`/assets/images/users/${guide.photo}`, alt=`${guide.firstName}`)
+                            - if (guide.role === 'lead-guide')
+                              span.overview-box__label Lead guide:
+                            - if (guide.role === 'guide')
+                              span.overview-box__label Tour guide:
+                            span.overview-box__text= guide.firstName 
+                      .bottom
+                        span.img-wrap.provider-img
+                    #description.card.content-card
+                      #variant-description.card-block.read-more-js(style="padding-bottom:0")
+                        .txt-wrap.description-block.close-block
+                          h3.card-title= `About ${tour.name} tour`
+                          
+                          - const tourDescription = tour.description.split('.');
+                          each paragraph in tourDescription
+                            p
+                              | #{paragraph}.
+
+                        .open-close.opener-block
+                          .opener-holder.text-center
+                            a.opener.card-block.more-details(href="javascript:void(0);" data-scroll="#variant-description" data-scroll-top-marge="100")
+                              .text More information
+                              strong Requirements, special terms &more
+                              i.icon-chevron-right
+                    .card.content-card.noBorder
+                      .forget-block.clearfix
+                        .column.adv
+                          i.icon-check
+                          .content
+                            strong.title Included
+                            ul.list
+                              li All necessary equipment
+                              li +
+                              li Tour Guides
+                      .forget-block.reminder.clearfix
+                        a.btn.btn-primary(style="cursor:default" href="javascript:void(0);") Do not forget to bring 
+                        .column
+                          i.icon-info-2
+                          .content
+                            strong.title Do not forget to bring
+                            ul.list
+                              li Windbreaker jacket
+                              li Comfortable shoes
+                              li Sunscreen
+                              li Sunglasses
+            .close-sidebar
+            #booking-process
+
+            // MEETING POINT
+            #activity-meeting-point.content-block.map-block
+              strong.base-title Meeting point
+              .row
+                .col-lg-4
+                  .info-holder
+                    .info-item
+                      span
+                      - const location = tour.startLocation.address.split(',');
+                      each l in location
+                        strong#poi-19237.address-activityI #{l}
+                      a.btn.btn-success(target="_blank" href=`https://www.google.com/maps/place/${tour.startLocation.coordinates.reverse()}`)
+                        | Get directions
+                .col-lg-8
+                  #map.mapbox-map-container(data-locations=`${JSON.stringify(tour.locations)}`)
+                  // MAPBOX
+
+          // PICTURE GALLERY
+          .gallery-block.d-none.d-md-block
+            .title-holder
+              h3#activity-gallery Gallery
+            .block-with-masonry
+              each image in tour.images
+                .content-wrap
+                  a(href=`/assets/images/tours/${image}` data-fancybox="images" data-caption=`${tour.slug}`)
+                    img(src=`/assets/images/tours/${image}` alt=`${tour.slug}`)
+                    
+
+          // END PICTURE GALLERY
+
+          // TOURS RECOMENDATION
+          #activity-reviews.content-block.reviews-holder
+          ul.cards-list.activity-suggestion
+            .top-block
+              .title-holder
+                h3
+                  | Our Customer's reviews... 
+                  small.text-muted
+              ul.controls
+                li
+                  a(href="javascript:void(0);")
+                    span.icon-chevron-thin-left.activity-prev
+                li
+                  a(href="javascript:void(0);")
+                    span.icon-chevron-thin-right.activity-next
+            .cards-list-holder.three-cols.slideshow-holder
+              .cards-slider.slick-card
+                ul.cards-list
+                  each review in tour.reviews 
+                     li.card-slick.reviews__card
+                        .base-block
+                          .bottom
+                            span.img-wrap.provider-logo-wrap
+                              img.reviews__avatar-img(src=`/assets/images/users/${review.user.photo}`, alt=`${review.user.firstName}`)
+                            span.text.reviews__user
+                              | #{review.user.firstName} 
+                          .content.reviews__content
+                            strong.title.reviews_title= review.review
+                            .content-bottom
+                              .rating-holder.rating-holder__review
+                                a.activity-reviews(href="javascript:void(0);" data-scroll-top-marge="100" data-scroll="#activity-reviews")                      
+                                  ul.static-rating.single_tour.affiliate-color-font
+                                    - const rev = review.rating
+                                    +_reviewStars(rev)               
+          include _footer

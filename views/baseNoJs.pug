@@ -1,0 +1,33 @@
+doctype html
+html()
+  head  
+  
+  //   / \   __| | __ _ _ __ ___      / \  | (_)
+  //  / _ \ / _` |/ _` | '_ ` _ \    / _ \ | | |
+  // / ___ \ (_| | (_| | | | | | |  / ___ \| | |
+  ///_/   \_\__,_|\__,_|_| |_| |_| /_/   \_\_|_|
+  //
+  // _____ _  _ ___ _  _ _  __   ___  _   _ _____ ___ ___ ___  ___   _____ _  _ ___   ___  _____  __
+  //|_   _| || |_ _| \| | |/ /  / _ \| | | |_   _/ __|_ _|   \| __| |_   _| || | __| | _ )/ _ \ \/ /
+  //  | | | __ || || .` | ' <  | (_) | |_| | | | \__ \| || |) | _|    | | | __ | _|  | _ \ (_) >  < 
+  //  |_| |_||_|___|_|\_|_|\_\  \___/ \___/  |_| |___/___|___/|___|   |_| |_||_|___| |___/\___/_/\_\
+  //
+  // adam@adamali.dev      
+    
+  block head 
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+    title ITINERANTUR | #{title}
+    // BOOTSTRAP CSS
+    link(media="all" rel="stylesheet" href="/assets/css/bootstrap.css")
+    // STYLE CSS
+    link(media="all" rel="stylesheet" href="/assets/css/style.css")
+    // FAVICON ICO
+    link(rel="icon" type="image/x-icon" href='/assets/images/favicon.ico')
+    // FONT AWESOME
+    script(src="https://kit.fontawesome.com/689bbb8ea9.js" crossorigin="anonymous")
+  body.no-js.inner-page
+  
+      
+      // CONTENT
+      block content
